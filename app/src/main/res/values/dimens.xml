@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="image_loading_progress_br_size">35dp</dimen>
+    <dimen name="image_loading_progress_br_padding">35dp</dimen>
+    <dimen name="gallery_item_margin">2dp</dimen>
+</resources>

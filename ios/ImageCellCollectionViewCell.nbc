@@ -1,0 +1,1 @@
+{"output":"src/main/java","platform":"iOS","bindings":[{"type":"header","name":"ImageCellCollectionViewCell","objcClassGenerationMode":"Binding","headerPath":"/Users/sergiy/libgdx/MoePoc/ios/xcode/ios/","headerSearchPaths":[],"userHeaderSearchPaths":[],"frameworkSearchPaths":[],"packageBase":"loki","importCode":"#import \"ImageCellCollectionViewCell.h\""}]}

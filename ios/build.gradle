@@ -1,0 +1,75 @@
+buildscript {
+    ext.kotlin_version = '1.2.21'
+    repositories {
+        jcenter()
+        maven { url 'http://oss.sonatype.org/content/repositories/snapshots' }
+        mavenLocal()
+    }
+    dependencies {
+        // Multi-OS Engine plugin
+        classpath group: 'org.multi-os-engine', name: 'moe-gradle', version: '1.4.+'
+
+        // Kotlin plugin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+// Apply plugins
+apply plugin: 'eclipse'
+apply plugin: 'kotlin'
+apply plugin: 'moe'
+apply plugin: 'kotlin-kapt'
+
+// Set source and target to Java 8
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+// Set maven repository
+repositories {
+    jcenter()
+    maven {
+        url 'http://oss.sonatype.org/content/repositories/snapshots'
+    }
+}
+
+// Exclude all files from Gradle's test runner
+test { exclude '**' }
+
+// Setup Multi-OS Engine
+moe {
+    xcode {
+        project 'xcode/ios.xcodeproj'
+        mainTarget 'ios'
+        testTarget 'ios-Test'
+
+        // Uncomment and change these settings if you are working with a Xcode workspace
+        // workspace 'xcode/ios.xcworkspace'
+        // mainScheme 'ios'
+        // testScheme 'ios-Test'
+    }
+}
+
+dependencies {
+    // Compile with 'jar' files in the project's 'lib' directory
+    compile fileTree(include: '*.jar', dir: 'lib')
+    // Add Kotlin dependency
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.1'
+
+    kapt "com.google.dagger:dagger-compiler:2.14.1"
+    implementation project(':core')
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+    main.java.srcDirs += 'build/generated/source/kapt'
+}
+
+// Setup Eclipse
+eclipse {
+    // Set Multi-OS Engine nature
+    project {
+        natures 'org.multi-os-engine.project'
+    }
+}
